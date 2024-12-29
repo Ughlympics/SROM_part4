@@ -36,6 +36,8 @@ public:
 	static bool get_sum_of_bits(const std::bitset<_POWER>&);
 	Poly square() const;
 	static int trace(const Poly&);
+	Poly inverse() const;
+	Poly power(const Poly& exp) const;
 
 	//helpers
 	static void generate_mult_matrix(static std::bitset<_POWER> mult_matrix[_POWER]);

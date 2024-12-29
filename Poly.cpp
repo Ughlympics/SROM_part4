@@ -239,3 +239,40 @@ std::bitset<443> reverse_bitset(const std::bitset<443>& bits) {
 int Poly::trace(const Poly& poly) {
     return get_sum_of_bits(poly.coefficients);
 }
+
+Poly Poly::inverse() const {
+    int bit_size_of_power = 9;
+    Poly b = *this;
+    Poly c;
+    int k = 1;
+    std::bitset<9> m = 442;
+    for (int i = bit_size_of_power - 1; i >= 0; --i) {
+        c = b;
+        for (int j = 0; j < k; ++j) {
+            c = c.square();
+        }
+        k *= 2;
+        b = c * b;
+        if (m[i]) {
+            b = b.square() * *this;
+            ++k;
+        }
+    }
+    Poly res = b.square();
+    return res;
+}
+
+Poly Poly::power(const Poly& n) const {
+    Poly result("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+    Poly base = *this; 
+    std::bitset<_POWER> exponent = n.coefficients;
+
+    for (int i = _POWER - 1; i >= 0; --i) {
+        result = result.square(); 
+        if (exponent[i]) {        
+            result = result * base; 
+        }
+    }
+
+    return result;
+}
